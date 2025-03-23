@@ -1,4 +1,4 @@
-# 🚀 Lower Bound & Upper Bound in C++
+1- 🚀 Lower Bound & Upper Bound in C++
 
 ## 🔹 What is `lower_bound`?
 - `lower_bound(start, end, value)` returns **the first element ≥ value**.
@@ -26,3 +26,15 @@ int main() {
     cout << "Lower Bound Index: " << lbIndex << endl;
     cout << "Upper Bound Index: " << ubIndex << " (value: " << v[ubIndex] << ")" << endl;
 }
+
+ 2 - 🚀 Binary_search in C++
+int main() {
+    vector<int> v = {1, 2, 4, 4, 6, 8};
+
+    if (binary_search(v.begin(), v.end(), 4))  // it gives that whether the element present in array or not 
+        cout << "4 found\n";
+}
+
+3 - 
+
+
