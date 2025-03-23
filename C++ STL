@@ -1,1 +1,6 @@
+#🚀 Lower Bound & Upper Bound in C++ STL
 
+Lower bound is used to get the index of target element and upper bound is to get the next element after element get like
+vector<int> v = {1, 2, 4, 4, 6, 8};
+cout << "Lower bound of 4: " << lower_bound(v.begin(), v.end(), 4) - v.begin(); // Index 2  here we subtract -v.begin so to get index
+cout << "\nUpper bound of 4: " <<  auto ub = upper_bound(v.begin(), v.end(), 4); // here it return the value that is 6
