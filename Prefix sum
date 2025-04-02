@@ -1,0 +1,62 @@
+# 📌 Prefix Sum Algorithm
+
+A **prefix sum** (or cumulative sum) is a technique used to preprocess an array for efficient range sum queries.  
+
+## 🔹 Definition  
+Given an array `A` of size `N`, the **prefix sum array** `P` is defined as:  
+\[
+P[i] = A[0] + A[1] + \dots + A[i]
+\]
+
+### ✅ 1-Based Index Formula  
+\[
+P[i] = P[i-1] + A[i]
+\]  
+- If needed, `P[0] = 0` (for query-based calculations).  
+- Otherwise, `P[0] = A[0]`.
+
+---
+
+## 💡 When to Use Prefix Sum?
+**Use Prefix Sum when:**
+1. **Multiple Range Sum Queries**: If you need to compute sum over different subarrays multiple times.
+2. **Large Input Arrays**: Avoids recomputing sum for each query, making it much faster.
+3. **Need for Fast Computation**: Reduces `O(N)` range sum queries to `O(1)`.
+4. **Finding Subarray Averages**: Quickly compute average using prefix sum.
+5. **Problems Involving Differences**: Used in **difference arrays** to update and track changes efficiently.
+6. **2D Matrices and Grids**: Can be extended to **2D Prefix Sum** for matrix-based problems.
+
+---
+
+## 💻 C++ Implementation
+
+```cpp
+#include <iostream>
+#include <vector>
+using namespace std;
+
+// ✅ Function to compute prefix sum array
+vector<int> prefixSum(const vector<int>& A) {
+    int n = A.size();
+    vector<int> P(n, 0);
+    P[0] = A[0]; // Initialize first element
+
+    for (int i = 1; i < n; i++)
+        P[i] = P[i-1] + A[i];
+
+    return P;
+}
+
+// ✅ Function to calculate range sum efficiently
+int rangeSum(const vector<int>& P, int L, int R) {
+    if (L == 0) return P[R];
+    return P[R] - P[L-1];  // Sum from L to R
+}
+
+int main() {
+    vector<int> A = {3, 1, 4, 1, 5, 9, 2};
+    vector<int> P = prefixSum(A);
+    
+    cout << "🔹 Sum from index 2 to 5: " << rangeSum(P, 2, 5) << endl; // Output: 19
+    return 0;
+}
