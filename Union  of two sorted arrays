@@ -1,0 +1,16 @@
+vector<int> findUnion(vector<int> &a, vector<int> &b) {
+        // Your code here
+        // return vector with correct order of elements
+       vector<int>v;
+       v.insert(v.end(),a.begin(),a.end()); // first insert elements of first array then second 
+       v.insert(v.end(),b.begin(),b.end());
+       
+       sort(v.begin(),v.end());
+       
+       v.erase(unique(v.begin(),v.end()), v.end()); // remove the duplicates from sorted array
+       
+       return v;
+       
+        
+        
+    }
