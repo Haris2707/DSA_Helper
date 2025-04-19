@@ -7,7 +7,7 @@ vector<int> findUnion(vector<int> &a, vector<int> &b) {
        
        sort(v.begin(),v.end());
        
-       v.erase(unique(v.begin(),v.end()), v.end()); // remove the duplicates from sorted array
+       v.erase(unique(v.begin(),v.end()), v.end()); // remove the duplicates from sorted array // unique() and erase → O(n + m) 
        
        return v;
        
