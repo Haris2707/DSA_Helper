@@ -1,0 +1,41 @@
+class Solution {
+public:
+    void subsetsHelper(const std::vector<int>& nums, int start, int currSum, vector<int>& res) {
+        res.push_back(currSum);
+        for (int i = start; i < nums.size(); ++i) {       ******* HEre the catch is I use a for loop for checking all choice but also i can use one more recursive call for include exclude thing *******
+            subsetsHelper(nums, i + 1, currSum + nums[i], res);
+        }
+    }
+
+    vector<int> subsetSums(vector<int>& nums) {
+        vector<int> res;
+        sort(nums.begin(), nums.end());  ***** There is no need of sorting in this case but mostly use it to print the result in correct order  form **********
+        subsetsHelper(nums, 0, 0, res);
+        return res;
+    }
+};
+
+
+************************* Here i doesnt use for loop go for the normal include exclude approach ****************************
+
+class Solution {
+public:
+    void helper(const std::vector<int>& nums, int index, int currSum, std::vector<int>& res) {
+        if (index == nums.size()) {
+            res.push_back(currSum);
+            return;
+        }
+
+        // 1️⃣ Exclude current element
+        helper(nums, index + 1, currSum, res);
+
+        // 2️⃣ Include current element
+        helper(nums, index + 1, currSum + nums[index], res);
+    }
+
+    std::vector<int> subsetSums(std::vector<int>& nums) {
+        std::vector<int> res;
+        helper(nums, 0, 0, res);
+        return res;
+    }
+};
