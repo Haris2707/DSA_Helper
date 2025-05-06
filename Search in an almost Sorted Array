@@ -1,0 +1,120 @@
+
+**************************Search in an almost Sorted Array************************************
+
+An array is nearly sorted (also called almost sorted or k-sorted with k = 1) if each element is at most one position away from its position in a fully sorted array.
+
+That means:
+
+An element may be:
+
+In the correct position,
+
+One position to the left of where it belongs,
+
+Or one position to the right.
+
+
+Sorted:        [10, 20, 30, 40, 50]
+Nearly sorted: [10, 30, 20, 50, 40]
+Explanation:
+
+30 is one position ahead of where it belongs,
+
+20 is one position behind,
+
+50 and 40 are similarly swapped — still just one position off.
+
+❌ Not Nearly Sorted
+Array: [30, 10, 50, 20, 40]
+Explanation:
+
+10 is two positions off from where it belongs,
+
+50 is also more than one position off.
+
+So basically que is almost similar like a traditional binary search in which i have to check whether the target is present or not if present return index otherwise return -1
+My approach is I first think to apply normal binary search but then realise if i do sort then i will loose the index 
+So i make a pair<original-element, original-index>
+here then i apply binary search to get result 
+
+
+class Solution {
+  public:
+    int findTarget(vector<int>& arr, int target) {
+        // code here
+        vector<pair<int,int>>v;
+        for(int i = 0; i<arr.size(); i++)
+        {
+            v.push_back({arr[i],i});
+        }
+        
+        sort(v.begin(),v.end());
+        
+        int left = 0;
+        int right = v.size()-1;
+        
+        while(left <= right)
+        {
+            int mid = left + (right - left)/2;
+            
+            if(v[mid].first == target)
+            {
+                return v[mid].second;
+            }
+            else if(v[mid].first < target)
+            {
+                left = mid + 1;
+            }
+            else{
+                right = mid -1;
+            }
+        }
+        return -1;
+    }
+};
+
+
+
+After that i get to Know about this solution without using sort that is 
+🧠 Key Idea for Binary Search in Nearly Sorted Array
+Given that a nearly sorted array can have elements displaced by only 1 position, a normal binary search can still be applied with minor adjustments. The logic is that:
+
+For each middle element (arr[mid]), the target element might be located at:
+
+mid (the middle element itself),
+
+mid-1 (the element just left of mid), or
+
+mid+1 (the element just right of mid).
+
+This slight flexibility in searching is due to the "nearly sorted" property.
+
+
+int findTarget(vector<int>& arr, int target) {
+    int n = arr.size();
+    int left = 0, right = n - 1;
+
+    while (left <= right) {
+        int mid = left + (right - left) / 2;
+        
+        // Check if the target is at the middle
+        if (arr[mid] == target) return mid;
+        
+        // Check if the target is at mid-1
+        if (mid - 1 >= 0 && arr[mid - 1] == target) return mid - 1;
+        
+        // Check if the target is at mid+1
+        if (mid + 1 < n && arr[mid + 1] == target) return mid + 1;
+
+        // Normal binary search adjustments
+        if (arr[mid] < target) {
+            left = mid + 1;
+        } else {
+            right = mid - 1;
+        }
+    }
+
+    return -1;  // Target not found
+}
+
+
